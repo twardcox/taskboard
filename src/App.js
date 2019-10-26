@@ -27,15 +27,27 @@ export default class App extends React.Component{
         title: 'Done',
         cards: []
       }
-    ]
+    ],
+    newBoard: ""
   }
   this.createBoard = this.createBoard.bind(this)
   this.createCard = this.createCard.bind(this)
   this.moveCard = this.moveCard.bind(this)
   }
   // TODO: Make function that creates boards
-  createBoard = (e) => {
-    this.setState({ boards: this.state.boards.push({id: this.props.id, title: e.title, cards: []})})
+  createBoard = () => {
+    console.log(`this.state.newBoard ${this.state.newBoard}`)
+    console.log(`this.state.boards 1 ${this.state.boards}`);
+    let createBoard = {
+      id: this.state.boards.length,
+      title: this.state.newBoard,
+      cards: []
+    };
+    let currentBoards = this.state.boards;
+    currentBoards.push(createBoard)
+    this.setState({boards: currentBoards})
+    console.log(`this.state.boards 2 ${this.state.boards}`);
+    // this.setState({ boards: this.state.boards.push({id: this.state.boards.length - 1, title: this.state.newBoard, cards: []})})
   }
 
   // this.setState({ myArray: this.state.myArray.push('new value') })
@@ -64,15 +76,30 @@ export default class App extends React.Component{
 
   }
 
+setNewBoardName = (e) =>{
+  e.preventDefault()
+  this.setState({newBoard: e.target.value})
+
+}
+
 
 render(){
   return(
-    <div className="card-deck">
-    
-    {this.state.boards.map((board, idx) => 
-      <Board value={idx} key={idx} id={board.id} title={board.title} cards={board.cards} moveCard={this.moveCard}></Board>
-    )}
+    <div>
 
+      <div className="card-deck">
+      
+      {this.state.boards.map((board, idx) => 
+        <Board value={idx} key={idx} id={board.id} title={board.title} cards={board.cards} moveCard={this.moveCard}></Board>
+      )}
+
+      </div>
+      
+        <label htmlFor="boardTitle">New Board</label>
+        <input onChange={this.setNewBoardName} type="text" name="boardTitle" value={this.state.newBoard} ></input>
+
+      <button onClick={this.createBoard}>Create</button>
+      
     </div>
   )
 }
