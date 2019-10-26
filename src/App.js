@@ -10,20 +10,20 @@ export default class App extends React.Component{
     this.state ={ 
       boards: [
       {
-        id: 'board1',
+        id: 0,
         title: 'Backlog',
         cards: [
-          {id: 'Card1', title: 'Write Blog', description: 'Can AI make memes'},
-          {id: 'Card2', title: 'Pay Rent', description: 'Transfer via NEFT'}
+          {id: 0, title: 'Write Blog', description: 'Can AI make memes'},
+          {id: 1, title: 'Pay Rent', description: 'Transfer via NEFT'}
         ]
       },
       {
-        id: 'board2',
+        id: 1,
         title: 'In-Progress',
         cards: []
       },
       {
-        id: 'board3',
+        id: 2,
         title: 'Done',
         cards: []
       }
@@ -31,41 +31,50 @@ export default class App extends React.Component{
   }
   this.createBoard = this.createBoard.bind(this)
   this.createCard = this.createCard.bind(this)
+  this.moveCard = this.moveCard.bind(this)
   }
   // TODO: Make function that creates boards
   createBoard = (e) => {
-    this.setState({ boards: this.state.boards.push({id: `board${this.state.boards.length + 1}`, title: e.title, cards: []})})
+    this.setState({ boards: this.state.boards.push({id: this.props.id, title: e.title, cards: []})})
   }
 
   // this.setState({ myArray: this.state.myArray.push('new value') })
 
   // TODO: Make function that creates cards
   createCard = (e) => {
-    this.setState({cards: this.state.cards.push({id: `Card${this.state.cards.length + 1}`, title: e.title, description: e.description, label: e.label})})
+    this.setState({cards: this.state.cards.push({id: this.props.id, title: e.title, description: e.description})})
     
   }
   
   // TODO: Make function that moves card from previous board to next board
-  // moveCard = (e) => {
-  //   let index = this.state.cards[e.key]
-  //   // use splice to remove specific card then push it into new board
-  //   let removedCard = this.setState({cards: this.state.cards.splice([index], 1)})
-  // }
+  moveCard = (props) => {
+    // let cardNum = e.target.value;
+    let boardNum = props.boardNum;
+    console.log('boardNum: ', boardNum);
+    // console.log('cardNum: ', cardNum);
+    
+
+    // let index = this.state.boards
+    // console.log('this.props.key: ', this.props.key);
+    // console.log('index: ', index);
+
+    // use splice to remove specific card then push it into new board
+    // let removedCard = this.setState({cards: this.state.cards.splice([index], 1)})
+    // console.log('removedCard: ', removedCard);
+
+  }
 
 
 render(){
   return(
-    <div>
+    <div className="card-deck">
+    
     {this.state.boards.map((board, idx) => 
-      <Board key={idx} id={board.id} title={board.title} cards={board.cards}></Board>
+      <Board value={idx} key={idx} id={board.id} title={board.title} cards={board.cards} moveCard={this.moveCard}></Board>
     )}
 
     </div>
   )
 }
-
-
-
-
 
 }

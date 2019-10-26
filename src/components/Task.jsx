@@ -1,21 +1,20 @@
 import React from 'react';
 
-const handleSubmit = (e) => {
-  e.preventDefault()
-}
-
-
 const Task = (props) => {
+  console.log('props: ', props.boardNum);
 
-        {/* {id: 'Card1', title: 'Write Blog', description: 'Can AI make memes'}, */}
   return(
-    <div >
-    <form onSubmit={handleSubmit}>
+    <div className="card">
+
       <label htmlFor="description">{props.title}</label>
-      {/* TODO: get ternary operator to work with strings */}
-      {props.description !== "" ? <h4>{props.description}</h4> : <h1>here</h1>}
-      {/* <input type="text" name="description"></input> */}
-    </form>
+      <label htmlFor="description">{props.id}</label>
+      <label type="text" name="description" value={props.description} ></label>
+
+      <span>
+        <button className="previous" onClick={props.moveCard}>&laquo;</button>
+      <button className="next" onClick={props.moveCard}> &raquo;</button>
+      </span>
+
     </div>
   )
 }
