@@ -28,34 +28,42 @@ export default class App extends React.Component{
         cards: []
       }
     ],
-    newBoard: ""
+    newBoard: "",
+    newCardTitle: "",
+    newCardDescription: ""
   }
   this.createBoard = this.createBoard.bind(this)
   this.createCard = this.createCard.bind(this)
   this.moveCard = this.moveCard.bind(this)
+  this.setNewBoardName = this.setNewBoardName.bind(this)
+  this.setNewCardDescription = this.setNewCardDescription.bind(this)
+  this.setNewCardTitle = this.setNewCardTitle.bind(this)
   }
   // TODO: Make function that creates boards
   createBoard = () => {
-    console.log(`this.state.newBoard ${this.state.newBoard}`)
-    console.log(`this.state.boards 1 ${this.state.boards}`);
+
     let createBoard = {
       id: this.state.boards.length,
       title: this.state.newBoard,
       cards: []
     };
+
     let currentBoards = this.state.boards;
     currentBoards.push(createBoard)
+
     this.setState({boards: currentBoards})
-    console.log(`this.state.boards 2 ${this.state.boards}`);
-    // this.setState({ boards: this.state.boards.push({id: this.state.boards.length - 1, title: this.state.newBoard, cards: []})})
+
   }
 
   // this.setState({ myArray: this.state.myArray.push('new value') })
 
   // TODO: Make function that creates cards
-  createCard = (e) => {
-    this.setState({cards: this.state.cards.push({id: this.props.id, title: e.title, description: e.description})})
-    
+  createCard = () => {
+    let newCard = {id: this.state.boards[0].cards.length, title: this.state.newCardTitle, description: this.state.newCardDescription}
+    let currentCards = this.state.boards[0].cards
+    currentCards.push(newCard)
+    this.setState({cards: currentCards})
+
   }
   
   // TODO: Make function that moves card from previous board to next board
@@ -82,6 +90,18 @@ setNewBoardName = (e) =>{
 
 }
 
+setNewCardTitle = (e) =>{
+  e.preventDefault()
+  this.setState({newCardTitle: e.target.value})
+
+}
+
+setNewCardDescription = (e) =>{
+  e.preventDefault()
+  this.setState({newCardDescription: e.target.value})
+
+}
+
 
 render(){
   return(
@@ -90,16 +110,25 @@ render(){
       <div className="card-deck">
       
       {this.state.boards.map((board, idx) => 
-        <Board value={idx} key={idx} id={board.id} title={board.title} cards={board.cards} moveCard={this.moveCard}></Board>
+        <Board value={idx} key={idx} id={board.id} title={board.title} cards={board.cards} moveCard={this.moveCard} setNewCardTitle={this.setNewCardTitle} setNewCardDescription={this.setNewCardDescription} createCard={this.createCard}></Board>
       )}
 
       </div>
-      
+
+      <div>
         <label htmlFor="boardTitle">New Board</label>
         <input onChange={this.setNewBoardName} type="text" name="boardTitle" value={this.state.newBoard} ></input>
 
       <button onClick={this.createBoard}>Create</button>
-      
+      </div>
+      <div>
+      <label>Create New Task</label>
+        <label htmlFor="newTitle">Title</label>
+        <input onChange={this.setNewCardTitle} type="text" name="newTitle" value={this.newCardTitle} ></input>
+        <label htmlFor="newDescription">Description</label> 
+        <input onChange={this.setNewCardDescription} type="text" name="newDescription" value={this.newCardDescription} ></input>
+      <button onClick={this.createCard}>Create</button>
+      </div>
     </div>
   )
 }
