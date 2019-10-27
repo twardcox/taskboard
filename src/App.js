@@ -67,20 +67,36 @@ export default class App extends React.Component{
   }
   
   // TODO: Make function that moves card from previous board to next board
-  moveCard = (props) => {
-    // let cardNum = e.target.value;
-    let boardNum = props.boardNum;
-    console.log('boardNum: ', boardNum);
-    // console.log('cardNum: ', cardNum);
-    
+  moveCard = (e) => {
+    console.log('old state', this.state.boards);
 
-    // let index = this.state.boards
-    // console.log('this.props.key: ', this.props.key);
-    // console.log('index: ', index);
+    let cardNum = parseInt(e.target.value[2]);
+    let boardNum = parseInt(e.target.value[0]);
+    let nextBoard = boardNum;
+    let direction = e.target.value[4]
+
+    if (boardNum === 0 && direction === "p"){
+      return;
+    } else if(direction === "p"){
+      nextBoard--;
+    }
+
+    if (boardNum === this.state.boards.length - 1 && direction === "n"){
+      return;
+    } else if (direction === "n"){
+      nextBoard++
+    }
+
+
+    let removeCard = this.state.boards[boardNum].cards.splice([cardNum], 1)
+    console.log('removeCard: ', removeCard);
+    this.state.boards[nextBoard].cards.push(...removeCard)
+    let newState = this.state.boards
+    console.log('newState: ', newState);
 
     // use splice to remove specific card then push it into new board
-    // let removedCard = this.setState({cards: this.state.cards.splice([index], 1)})
-    // console.log('removedCard: ', removedCard);
+    this.setState({boards: newState})
+
 
   }
 

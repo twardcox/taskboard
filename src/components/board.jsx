@@ -5,7 +5,7 @@ import Task from './Task.jsx';
 
 
 const Board = (props) =>{
-
+  
   return(
     <div value={props.id} className="card">
 
