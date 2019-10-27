@@ -1,3 +1,17 @@
+# Taskboard
+
+This app mimics the functionality of a Kanban-style list-making application.
+
+## resources:
+
+### instruction on card making
+
+https://www.w3schools.com/bootstrap4/bootstrap_cards.asp
+
+### example data
+
+https://www.npmjs.com/package/react-trello
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
