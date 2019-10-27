@@ -131,19 +131,23 @@ render(){
 
       </div>
 
-      <div>
-        <label htmlFor="boardTitle">New Board</label>
+      <div className="card">
+      <div className="card-header bg-success">New Board</div>
         <input onChange={this.setNewBoardName} type="text" name="boardTitle" value={this.state.newBoard} ></input>
-
-      <button onClick={this.createBoard}>Create</button>
+        <div className="card-footer  bg-success"><button onClick={this.createBoard}>Create</button></div>
+      
       </div>
-      <div>
-      <label>Create New Task</label>
+
+
+      <div className="card">
+      <div className="card-header bg-info">Create New Task</div>
         <label htmlFor="newTitle">Title</label>
         <input onChange={this.setNewCardTitle} type="text" name="newTitle" value={this.newCardTitle} ></input>
         <label htmlFor="newDescription">Description</label> 
         <input onChange={this.setNewCardDescription} type="text" name="newDescription" value={this.newCardDescription} ></input>
+        <div className="card-footer  bg-info">
       <button onClick={this.createCard}>Create</button>
+      </div>
       </div>
     </div>
   )
